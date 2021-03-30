@@ -14,6 +14,25 @@ function wordCounter(text) {
   return wordCount;
 }
 
+function removeBadWords(text) {
+  if (text.trim().length === 0) {
+    return 0;
+  }
+  const wordArray = text.split(" ");
+  let index = 0;
+  wordArray.forEach(function(element) {
+
+    if (element === "muppeteer") {
+      wordArray.splice(index,1);
+      
+    }
+    index ++;
+      
+  });
+
+  console.log(wordArray);
+}
+
 function numberOfOccurrencesInText(word, text) {
   if ((text.trim().length === 0) || (word.trim().length === 0)) {
     return 0;
