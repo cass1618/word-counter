@@ -1,0 +1,14 @@
+Compare each word in sentenceArray to each word in badArray
+Both arrays could have a different number of words
+
+Could find the size of array and then do a for loop to iterate through each index
+
+Or use a nested forEach loop
+
+For the outer loop use forEach to go through each of the sentenceArray words
+
+Inside the loop we have a single word
+
+Loop inside this will go through all the badArray words
+and compare to the word from the outer loop
+
