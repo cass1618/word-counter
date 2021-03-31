@@ -23,23 +23,24 @@ function wordCounter(sentence) {
 function removeUserBadWords(sentenceString, badString) {
   const wordArray = sentenceToArray(sentenceString)
   const badArray = sentenceToArray(badString)
-  const goodArray = ["one"];
+  let goodArray = [];
+  let goodSentence = "blank";
+  let notGood = 0;
 
-  //outer loop: iterates through all of the  sentence words
   wordArray.forEach(function(word) {
-    //inner loop: iterates through each bad word and compares to the word from the outer loop
+    notGood = 0;
     badArray.forEach(function(badWord) {
-      
-        if (word != badWord) {
-          goodArray.push(word);
-          console.log("pushed "+word+" to goodArray");
-        }
+      if (word === badWord) {
+      notGood++;
+    }
+    console.log("for word "+word+" notGood is "+notGood);
   });
-  // Joins the good word array into a sentence
-  let goodSentence = goodArray.join(" ");
-  console.log(goodSentence);
-  return goodSentence;
-});
+  if (notGood === 0) {
+    goodArray.push(word);
+  }
+  });
+  console.log("good array "+goodArray);
+  return goodArray.join(" ");
 }
 
 function removeBadWords(sentence) {
@@ -49,6 +50,7 @@ function removeBadWords(sentence) {
   wordArray.forEach(function(word) {
     if ((word != "muppeteer")&&(word != "lame")&&(word != "dummy")&&(word != "whatever")) {
       goodArray.push(word); 
+      
     }      
   });
   // Joins the good words into a sentence
@@ -57,7 +59,7 @@ function removeBadWords(sentence) {
 }
 
 function numberOfOccurrencesInText(word, sentence) {
-  const wordArray = sentenceToArray(sentence));
+  const wordArray = sentenceToArray(sentence);
   let wordCount = 0;
   wordArray.forEach(function(element) {
     if (element.toLowerCase().includes(word.toLowerCase())) {
@@ -77,5 +79,20 @@ $(document).ready(function(){
     const occurrencesOfWord = numberOfOccurrencesInText(word, passage);
     $("#total-count").html(wordCount);
     $("#selected-count").html(occurrencesOfWord);
+  });
+
+  $("form#remove-bad-words").submit(function(event){
+    event.preventDefault();
+    const passage = $("#bad-word-text").val();
+    const passage2 = $("#user-select-text").val();
+    const badWords = $("#user-select-words").val();
+    
+    const noBadWords = removeBadWords(passage);
+    console.log("bad word "+badWords);
+    console.log("noBadWords "+noBadWords);
+    const noUserWords = removeUserBadWords(passage2,badWords);
+    console.log("No user words "+noUserWords)
+    $("#no-bad").html(noBadWords);
+    $("#no-user").html(noUserWords);
   });
 });
